@@ -15,10 +15,10 @@ class DatabaseConnector extends \Illuminate\Queue\Connectors\DatabaseConnector
     public function connect(array $config)
     {
         return new DatabaseQueue(
-            $this->connections->connection($config['connection'] ?? null),
+            $this->connections->connection(!empty($config['connection']) ? $config['connection'] : null),
             $config['table'],
             $config['queue'],
-            $config['retry_after'] ?? 60
+            isset($config['retry_after']) ? $config['retry_after'] : 60
         );
     }
 }

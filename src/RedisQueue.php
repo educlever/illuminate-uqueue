@@ -34,7 +34,8 @@ class RedisQueue extends \Illuminate\Queue\RedisQueue
     {
         $this->getConnection()->zadd($this->getQueue($queue), 'NX', microtime(true), $payload);
 
-        return json_decode($payload, true)['id'] ?? null;
+        $json = json_decode($payload, true);
+        return !empty($json['id']) ? $json['id'] : null;
     }
 
     /**
