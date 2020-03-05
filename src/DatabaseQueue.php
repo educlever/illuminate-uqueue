@@ -131,7 +131,13 @@ class DatabaseQueue extends \Illuminate\Queue\DatabaseQueue
                 ->where('queue', $this->getQueue($queue));
 
             if (count($results = $query->get(['id']))) {
-                return $results[0]->id;
+                $row = $results[0];
+                if (is_object($row)) {
+                    return $row->id;
+                }
+                else {
+                    return $row['id'];
+                }
             }
         }
     }
@@ -146,6 +152,8 @@ class DatabaseQueue extends \Illuminate\Queue\DatabaseQueue
         } elseif ($driver === 'sqlite' && in_array($ecode, [23000, 19, 2067])) {
             // pass
         } elseif ($driver === 'mysql' && in_array($ecode, [23000, 1062])) {
+            // pass
+        } elseif ($driver === 'mysqli' && in_array($ecode, [23000, 1062])) {
             // pass
         } elseif ($driver === 'sqlsrv' && in_array($ecode, [2601, 2627])) {
             // pass
