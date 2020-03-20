@@ -183,4 +183,26 @@ class DatabaseQueue extends \Illuminate\Queue\DatabaseQueue
 
         return $json;
     }
+
+    /**
+     * Get the underlying table
+     *
+     * @return string
+     */
+    public function getTable()
+    {
+        return $this->table;
+    }
+    
+    /**
+     * Get the queue or return the default.
+     * public alias for getQueue
+     *
+     * @param  string|null  $queue
+     * @return string
+     */
+    public function getQueueOrDefault($queue)
+    {
+        return $this->getQueue($queue);
+    }
 }
