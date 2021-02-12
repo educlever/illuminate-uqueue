@@ -193,7 +193,7 @@ class DatabaseQueue extends \Illuminate\Queue\DatabaseQueue
     {
         return $this->table;
     }
-    
+
     /**
      * Get the queue or return the default.
      * public alias for getQueue

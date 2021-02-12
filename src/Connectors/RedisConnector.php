@@ -16,9 +16,9 @@ class RedisConnector extends \Illuminate\Queue\Connectors\RedisConnector
     {
         return new RedisQueue(
             $this->redis, $config['queue'],
-            !empty($config['connection']) ? $config['connection'] : $this->connection,
-            !empty($config['retry_after']) ? $config['retry_after'] : 60,
-            !empty($config['block_for']) ? $config['block_for'] : null
+            $config['connection'] ?? $this->connection,
+            $config['retry_after'] ?? 60,
+            $config['block_for'] ?? null
         );
     }
 }
